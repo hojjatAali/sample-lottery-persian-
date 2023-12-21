@@ -13,7 +13,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Styles -->
     <style>
@@ -22,10 +24,11 @@
 </head>
 <nav class=" mx-2 my-2 d-flex navbar-light bg-light">
 
-    <a class="btn btn-outline-success" href="/" >صفحه اصلی  </a>
-    <a class="btn btn-outline-secondary" href="lottery/add" >اضافه کردن شرکت کننده </a>
+    <a class="btn my-2 btn-outline-success" href="/" >صفحه اصلی  </a>
+    <a class="btn  my-2 btn-outline-secondary" href="lottery/add" >اضافه کردن شرکت کننده </a>
 
 </nav>
+
 <div class="progress mt-2" style="height: 50px;">
     <div class="progress-bar bg-red progress-bar-striped progress-bar-animated " role="progressbar"
          style="width: 100%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
@@ -41,11 +44,13 @@
         <h1 class="my-5">نام نفرات قرعه کشی امروز</h1>
     </div>
     <div class="row">
+        <input class="form-control" id="myInput" type="text" placeholder="جستجو..">
+        <br>
         <div class="col-md-offset-1 col-md-10">
             <div class="panel">
 
                 <div class="panel-body table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>شماره </th>
@@ -53,7 +58,7 @@
                             <th>تعداد شانس </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                         @php $rowNumber=1; @endphp
                         @foreach($users as $user)
                             <tr>
@@ -97,6 +102,17 @@
 @endif
 <hr>
 
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
 
 
 
@@ -124,6 +140,9 @@
         <h1>{{  date('H:i:s')}} </h1>
 
     </div>
+
+
+
 
 @endisset
 
